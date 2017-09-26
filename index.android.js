@@ -10,13 +10,39 @@ import LoginHome from './components/loginHome';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import Preferences from './components/preferences';
+import MyPreferences from './components/myPreferences';
 import { StackNavigator } from 'react-navigation';
 
-export default mystroApp = StackNavigator({
+const LoginNav = StackNavigator({
   Home: { screen: LoginHome},
   Login: { screen: LoginForm },
   Register: { screen: RegisterForm},
   Preferences: { screen: Preferences},
 });
 
-AppRegistry.registerComponent('mystroApp', () => mystroApp);
+const PreferencesNav = StackNavigator({
+  Home: { screen: MyPreferences},
+  Preferences: { screen: Preferences},
+});
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      preferencesSet: false
+    }
+  }
+  render() {
+    if (!this.state.preferencesSet) {
+      return(
+        <LoginNav/>
+      )
+    } else {
+      return (
+        <PreferencesNav/>
+      )
+    }
+  }
+}
+
+AppRegistry.registerComponent('mystroApp', () => App);

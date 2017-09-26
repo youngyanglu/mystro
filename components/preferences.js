@@ -41,7 +41,7 @@ const styles = {
 
 export default class Preferences extends Component {
   static navigationOptions = {
-    title: 'Login',
+    title: 'Preferences',
   };
   render () {
     return (
