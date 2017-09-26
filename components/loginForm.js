@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { FormLabel, FormInput } from 'react-native-elements'
+import { Button } from 'react-native-elements';
 
 export default class LoginForm extends Component {
   static navigationOptions = {
@@ -21,6 +22,9 @@ export default class LoginForm extends Component {
       <FormInput onChangeText={text => {}}/>
       <FormLabel>Password</FormLabel>
       <FormInput onChangeText={text => {}} secureTextEntry={true}/>
+      <Button
+        onPress={() => navigate('Preferences')}
+        title='Submit' />
       </View>
     );
   }

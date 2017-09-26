@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { FormLabel, FormInput } from 'react-native-elements'
@@ -23,6 +24,9 @@ export default class RegisterForm extends Component {
       <FormInput onChangeText={text => {}} secureTextEntry={true}/>
       <FormLabel>Retype Password</FormLabel>
       <FormInput onChangeText={text => {}} secureTextEntry={true}/>
+      <Button
+        onPress={() => navigate('Preferences')}
+        title='Submit' />
       </View>
     );
   }
