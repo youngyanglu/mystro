@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -11,43 +5,16 @@ import {
   Text,
   View
 } from 'react-native';
+import { Button } from 'react-native-elements';
+import LoginHome from './components/loginHome';
+import LoginForm from './components/loginForm';
+import RegisterForm from './components/registerForm';
+import { StackNavigator } from 'react-navigation';
 
-export default class mystroApp extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+export default mystroApp = StackNavigator({
+  Home: { screen: LoginHome},
+  Login: { screen: LoginForm },
+  Register: { screen: RegisterForm},
 });
 
 AppRegistry.registerComponent('mystroApp', () => mystroApp);
