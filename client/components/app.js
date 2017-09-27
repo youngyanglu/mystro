@@ -3,24 +3,13 @@ import {
   Alert,
   AppRegistry,
   StyleSheet,
-  Text,
-  View
 } from 'react-native';
 import {connect} from 'react-redux';
 import { Button } from 'react-native-elements';
-import LoginHomeContainer from '../containers/loginHomeContainer';
-import LoginForm from './loginForm';
-import RegisterForm from './registerForm';
+import LoginHome from '../components/loginHome';
 import Preferences from './preferences';
 import MyPreferences from './myPreferences';
 import { StackNavigator } from 'react-navigation';
-
-const LoginNav = StackNavigator({
-  Home: { screen: LoginHomeContainer},
-  Login: { screen: LoginForm },
-  Register: { screen: RegisterForm},
-  Preferences: { screen: Preferences},
-});
 
 const PreferencesNav = StackNavigator({
   Home: { screen: MyPreferences},
@@ -46,7 +35,7 @@ class App extends Component {
     }, true);
     if (!this.props.login.login) {
       return(
-          <LoginHomeContainer/>
+          <LoginHome/>
       )
     } else if (!prefSet) {
       return (

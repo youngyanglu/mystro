@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import {
   Alert,
-  AppRegistry,
-  Platform,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import { Button } from 'react-native-elements'
 import Auth0 from 'react-native-auth0';
 import loginActions from '../actions/login';
-
+import { connect } from 'react-redux'
 var credentials = require('./auth0-credentials');
 const auth0 = new Auth0(credentials);
 
-export default class Auth0Sample extends Component {
+const mapStateToProps = state => {
+  return {
+    login: state.login
+  }
+}
+
+class LoginHome extends Component {
   constructor(props) {
     super(props);
   }
@@ -57,3 +60,4 @@ const styles = StyleSheet.create({
   }
 });
 
+export default connect(mapStateToProps)(LoginHome)

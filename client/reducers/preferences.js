@@ -8,7 +8,7 @@ const initialState = {
   'carpool': null
 }
 
-export default preferences = (state = initialState, action) => {
+const preferences = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_PREFERENCE':
       return Object.assign({}, state, {
@@ -18,3 +18,5 @@ export default preferences = (state = initialState, action) => {
       return state
   }
 }
+
+export default preferences;
