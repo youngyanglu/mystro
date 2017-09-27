@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import {
   Alert,
   AppRegistry,
-  Button,
   Platform,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+import { Button } from 'react-native-elements'
 import Auth0 from 'react-native-auth0';
+import loginActions from '../actions/login';
 
 var credentials = require('./auth0-credentials');
 const auth0 = new Auth0(credentials);
@@ -16,7 +17,6 @@ const auth0 = new Auth0(credentials);
 export default class Auth0Sample extends Component {
   constructor(props) {
     super(props);
-    this.state = { accessToken: null };
   }
 
   _onLogin = () => {
@@ -26,41 +26,17 @@ export default class Auth0Sample extends Component {
         audience: 'https://' + credentials.domain + '/userinfo'
       })
       .then(credentials => {
-        Alert.alert(
-          'Success',
-          'AccessToken: ' + credentials.accessToken,
-          [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-          { cancelable: false }
-        );
-        this.setState({ accessToken: credentials.accessToken });
+        this.props.dispatch(loginActions.login(credentials.accessToken));
       })
       .catch(error => console.log(error));
   };
 
-  _onLogout = () => {
-    if (Platform.OS === 'android') {
-      this.setState({ accessToken: null });
-    } else {
-      auth0.webAuth
-        .clearSession({})
-        .then(success => {
-          this.setState({ accessToken: null });
-        })
-        .catch(error => console.log(error));
-    }
-  };
-
   render() {
-    let loggedIn = this.state.accessToken === null ? false : true;
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Auth0Sample - Login</Text>
-        <Text>
-          You are {loggedIn ? '' : 'not '}logged in.
-        </Text>
         <Button
-          onPress={loggedIn ? this._onLogout : this._onLogin}
-          title={loggedIn ? 'Log Out' : 'Log In'}
+          onPress={this._onLogin}
+          title={'Log In or Sign Up'}
         />
       </View>
     );
@@ -81,4 +57,3 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('Auth0Sample', () => Auth0Sample);
