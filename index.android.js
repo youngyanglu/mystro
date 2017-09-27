@@ -6,11 +6,11 @@ import {
   View
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import LoginHome from './components/loginHome';
-import LoginForm from './components/loginForm';
-import RegisterForm from './components/registerForm';
-import Preferences from './components/preferences';
-import MyPreferences from './components/myPreferences';
+import LoginHome from './client/components/loginHome';
+import LoginForm from './client/components/loginForm';
+import RegisterForm from './client/components/registerForm';
+import Preferences from './client/components/preferences';
+import MyPreferences from './client/components/myPreferences';
 import { StackNavigator } from 'react-navigation';
 
 const LoginNav = StackNavigator({
