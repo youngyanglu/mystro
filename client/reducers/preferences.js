@@ -1,3 +1,5 @@
+import {Alert} from 'react-native';
+
 const initialState = {
   'activeApp': null,
   'pickUpDistance': null,
@@ -7,12 +9,10 @@ const initialState = {
 }
 
 export default preferences = (state = initialState, action) => {
-  var preference = action.preference;
-  var choice = action.choice;
   switch (action.type) {
     case 'SET_PREFERENCE':
       return Object.assign({}, state, {
-        preference: choice
+        [action.preference]: action.choice
       })
     default:
       return state

@@ -3,8 +3,26 @@ import {
 } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Text, Button } from 'react-native-elements';
+import preferenceActions from '../actions/preferences';
+import {connect} from "react-redux";
 
-export default class Preference1 extends Component {
+const pickUpDistance = ['5 mins', '10 mins', '20 mins', 'Any'];
+const minPassengerRating = ['4.5', '4.0', '3.5', 'Any'];
+
+const mapStateToProps = state => {
+  return {
+    preferences: state.preferences,
+  }
+}
+
+class Preference2 extends Component {
+  constructor(props) {
+    super(props);
+    this.handlePress = this.handlePress.bind(this);
+  }
+  handlePress = (preference, choice) => {
+    this.props.dispatch(preferenceActions.setPreference(preference, choice))
+  }
   render () {
     return (
       <Grid>
@@ -14,22 +32,14 @@ export default class Preference1 extends Component {
           </Text>
         </Row>
         <Row size={1}>
-          <Col>
-          <Button
-            title='5 mins' />
-          </Col>
-          <Col>
-          <Button
-            title='10 mins' />
-          </Col>
-          <Col>
-          <Button
-            title='20 mins' />
-          </Col>
-          <Col>
-          <Button
-            title='Any' />
-          </Col>
+          {pickUpDistance.map(time => (
+            <Col key = {time}>
+              <Button
+                title = {time}
+                onPress = {() => this.handlePress('pickUpDistance', time)}
+              />
+            </Col>
+          ))}
         </Row>
         <Row size={1}>
           <Text h4>
@@ -37,24 +47,18 @@ export default class Preference1 extends Component {
           </Text>
         </Row>
         <Row size={2}>
-          <Col>
-            <Button
-              title='4.5' />
-          </Col>
-          <Col>
-            <Button
-              title='4.0' />
-          </Col>
-          <Col>
-            <Button
-              title='3.5' />
-          </Col>
-          <Col>
-            <Button
-              title='Any' />
-          </Col>
+          {minPassengerRating.map(rating => (
+            <Col key = {rating}>
+              <Button
+                key = {rating}
+                title = {rating}
+                onPress = {() => this.handlePress('minPassengerRating', rating)}
+              />
+            </Col>
+          ))}
         </Row>
       </Grid>
     )
   }
 }
+export default connect(mapStateToProps)(Preference2);
