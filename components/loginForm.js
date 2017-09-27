@@ -6,8 +6,10 @@ import {
   View
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { FormLabel, FormInput } from 'react-native-elements'
-import { Button } from 'react-native-elements';
+import { FormLabel, FormInput, Button } from 'react-native-elements'
+import Auth0 from 'react-native-auth0';
+
+const auth0 = new Auth0({ domain: 'mystroapp.auth0.com', clientId: '783HEpX7pzz05kf1KQ75zjUBkhE9BnWu' });
 
 export default class LoginForm extends Component {
   static navigationOptions = {

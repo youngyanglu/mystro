@@ -31,6 +31,11 @@ class App extends Component {
     this.state = {
       preferencesSet: false
     }
+    fetch('http://10.6.70.188:3000')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        Alert.alert(responseJson);
+      })
   }
   render() {
     if (!this.state.preferencesSet) {
