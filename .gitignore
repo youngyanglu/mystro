@@ -24,6 +24,7 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
+client/components/auth0-credentials.js
 build/
 .idea
 .gradle
