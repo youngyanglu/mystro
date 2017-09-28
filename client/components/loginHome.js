@@ -9,6 +9,7 @@ import Auth0 from 'react-native-auth0';
 import loginActions from '../actions/login';
 import preferenceActions from '../actions/preferences';
 import { connect } from 'react-redux'
+import api from '../api/api'
 var creds = require('./auth0-credentials');
 const auth0 = new Auth0(creds);
 
@@ -22,6 +23,7 @@ const mapStateToProps = state => {
 class LoginHome extends Component {
   constructor(props) {
     super(props);
+    this.props.dispatch(loginActions.saveAuth(auth0))
   }
 
   _onLogin = () => {
@@ -31,29 +33,23 @@ class LoginHome extends Component {
         audience: 'https://' + creds.domain + '/userinfo'
       })
       .then(credentials => {
-        fetch('https://mystroapp.auth0.com/userinfo', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${credentials.accessToken}`
-          },
-        })
+        api.getUserProfile(credentials.accessToken)
           .then((response) => response.json())
           .then(responsejson => {
             this.props.dispatch(loginActions.login(credentials.accessToken, responsejson.sub));
-            fetch(`https://mystroapp.auth0.com/api/v2/users/${responsejson.sub}`,
-              { method: 'GET',
-                headers:
-                { 'content-type': 'application/json',
-                  authorization: `Bearer ${creds.APItoken}` }
-              })
-              .then(response => response.json())
+            api.getUserMetadata(creds.APItoken, responsejson.sub)
+              .then((response) => response.json())
               .then(responsejson => {
                 for (var prop in responsejson.user_metadata) {
                   this.props.dispatch(preferenceActions.setPreference(prop, responsejson.user_metadata[prop]))
                 }
               })
-              .then(() => {
+              .catch((err) => {
+                console.log(err);
               })
+          })
+          .catch(err => {
+            console.log(err);
           })
       })
   };

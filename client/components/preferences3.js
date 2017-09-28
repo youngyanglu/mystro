@@ -6,6 +6,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { Text, Button } from 'react-native-elements';
 import preferenceActions from '../actions/preferences';
 import {connect} from "react-redux";
+import api from "../api/api";
 
 var creds = require('./auth0-credentials');
 
@@ -46,17 +47,7 @@ class Preference3 extends Component {
         <Row>
           <Button
             onPress = {() => {
-              fetch(`https://mystroapp.auth0.com/api/v2/users/${this.props.login.user_id}`,
-                { method: 'PATCH',
-                  headers:
-                  {'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    authorization: `Bearer ${creds.APItoken}` },
-                  body: JSON.stringify({
-                    "user_metadata": this.props.preferences
-                  })
-                }
-              )
+                api.updateUserData(creds.APItoken, this.props.login.user_id, this.props.preferences)
                 .then(response => response.json())
                 .then(responsejson => {
                   Alert.alert(JSON.stringify(responsejson))

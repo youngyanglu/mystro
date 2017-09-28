@@ -18,3 +18,18 @@ module.exports.getUserMetadata = (APItoken, user_id) => {
         authorization: `Bearer ${APItoken}` }
     })
 }
+
+module.exports.updateUserData = (APItoken, user_id, preferences) => {
+  return fetch(`https://mystroapp.auth0.com/api/v2/users/${user_id}`,
+    { method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        authorization: `Bearer ${APItoken}`
+      },
+      body: JSON.stringify({
+        "user_metadata": preferences
+      })
+    }
+  )
+}
