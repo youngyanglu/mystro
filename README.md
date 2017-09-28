@@ -13,5 +13,6 @@ You will need to add your own auth0 configuration (including domain, client ID a
 
 ## Future Improvements
 
-1. User default login: no need to press Login/Signup if already authenticated
+1. Save user login: no need to press Login/Signup if already authenticated
 1. Fix Navigation to clear stack 
+1. Toasts for when user is offline
