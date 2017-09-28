@@ -8,14 +8,24 @@ import {
 import { Button, ListItem, Card } from 'react-native-elements';
 import {connect} from 'react-redux';
 import { StackNavigator } from 'react-navigation';
+import loginActions from '../actions/login';
 
 const mapStateToProps = state => {
   return {
-    preferences: state.preferences
+    preferences: state.preferences,
+    login: state.login
   }
 }
 
 class MyPreferences extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  _onLogout() {
+    this.props.dispatch(loginActions.logout());
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     const descriptions = {
@@ -25,11 +35,12 @@ class MyPreferences extends Component {
       'minPassengerRating': "Minimum Passenger Rating",
        'carpool': "Accept Carpool"
     }
+
     return (
       <View>
-      <Card containerStyle={{padding: 0}} >
-        {
-          Object.keys(this.props.preferences).map((preference) => {
+        <Card containerStyle={{padding: 0}} >
+          {
+            Object.keys(this.props.preferences).map((preference) => {
             return (
               <ListItem
                 hideChevron = {true}
@@ -45,7 +56,7 @@ class MyPreferences extends Component {
           title="Edit My Preferences"
         />
         <Button
-          onPress={() => {}}
+          onPress={this._onLogout.bind(this)}
           title="Logout"
         />
       </View>

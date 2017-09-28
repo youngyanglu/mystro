@@ -13,3 +13,11 @@ module.exports.logout = () => {
     type: 'LOGOUT',
   }
 }
+
+module.exports.saveAuth = (auth0) => {
+  return {
+    type: 'SAVE_AUTH0',
+    auth0: auth0
+  }
+}
+
