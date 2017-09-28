@@ -9,8 +9,10 @@ import Auth0 from 'react-native-auth0';
 import loginActions from '../actions/login';
 import preferenceActions from '../actions/preferences';
 import { connect } from 'react-redux'
+import {loginHome as styles} from '../styling/styles';
 import api from '../api/api'
-var creds = require('./auth0-credentials');
+import creds from './auth0-credentials';
+
 const auth0 = new Auth0(creds);
 
 const mapStateToProps = state => {
@@ -19,6 +21,7 @@ const mapStateToProps = state => {
     preferences: state.preferences
   }
 }
+
 
 class LoginHome extends Component {
   constructor(props) {
@@ -65,19 +68,5 @@ class LoginHome extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  header: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
-  }
-});
 
 export default connect(mapStateToProps)(LoginHome)

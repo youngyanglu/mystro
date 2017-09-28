@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
   View
 } from 'react-native';
 import { Button, ListItem, Card } from 'react-native-elements';
