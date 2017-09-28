@@ -28,11 +28,12 @@ class App extends Component {
     super(props);
   }
   render() {
-    const prefSet = Object.values(this.props.preferences).reduce((acc, element) => {
-      if (!acc || !element) {
-        return false;
+    prefSet = true;
+    for (var prop in this.props.preferences) {
+      if (!this.props.preferences[prop]) {
+       prefSet = false;
       }
-    }, true);
+    }
     if (!this.props.login.login) {
       return(
           <LoginHome/>

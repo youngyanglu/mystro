@@ -1,6 +1,7 @@
 const initialState = {
   'login': false,
-  'accessToken': null
+  'accessToken': null,
+  'user_id': null
 }
 
 const login = (state = initialState, action) => {
@@ -8,7 +9,8 @@ const login = (state = initialState, action) => {
     case 'LOGIN':
       return Object.assign({}, state, {
         login: true,
-        accessToken: action.accessToken
+        accessToken: action.accessToken,
+        user_id: action.user_id
       })
     case 'LOGOUT':
       state[login] = false;

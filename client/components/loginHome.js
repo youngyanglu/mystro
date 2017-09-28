@@ -7,13 +7,15 @@ import {
 import { Button } from 'react-native-elements'
 import Auth0 from 'react-native-auth0';
 import loginActions from '../actions/login';
+import preferenceActions from '../actions/preferences';
 import { connect } from 'react-redux'
 var creds = require('./auth0-credentials');
 const auth0 = new Auth0(creds);
 
 const mapStateToProps = state => {
   return {
-    login: state.login
+    login: state.login,
+    preferences: state.preferences
   }
 }
 
@@ -37,23 +39,23 @@ class LoginHome extends Component {
         })
           .then((response) => response.json())
           .then(responsejson => {
+            this.props.dispatch(loginActions.login(credentials.accessToken, responsejson.sub));
             fetch(`https://mystroapp.auth0.com/api/v2/users/${responsejson.sub}`,
               { method: 'GET',
-                qs: { fields: 'user_metadata', include_fields: 'true' },
                 headers:
                 { 'content-type': 'application/json',
                   authorization: `Bearer ${creds.APItoken}` }
               })
               .then(response => response.json())
               .then(responsejson => {
-                Alert.alert(JSON.stringify(responsejson.user_metadata))
+                for (var prop in responsejson.user_metadata) {
+                  this.props.dispatch(preferenceActions.setPreference(prop, responsejson.user_metadata[prop]))
+                }
+              })
+              .then(() => {
               })
           })
-          .catch(err => {
-          })
-        this.props.dispatch(loginActions.login(credentials.accessToken));
       })
-      .catch(error => console.log(error));
   };
 
   render() {
