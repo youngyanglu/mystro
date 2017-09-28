@@ -11,10 +11,17 @@ import Preferences from './preferences';
 import MyPreferences from './myPreferences';
 import { StackNavigator } from 'react-navigation';
 
-const PreferencesNav = StackNavigator({
+const MyPreferencesNav = StackNavigator({
   Home: { screen: MyPreferences},
   Preferences: { screen: Preferences},
 });
+
+const SetPreferencesNav = StackNavigator({
+  Home: { screen: MyPreferences},
+  Preferences: { screen: Preferences},
+}, {
+    initialRouteName: 'Preferences',
+  });
 
 const mapStateToProps = state => {
   return {
@@ -23,28 +30,23 @@ const mapStateToProps = state => {
   }
 }
 
+
 class App extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    prefSet = true;
-    for (var prop in this.props.preferences) {
-      if (!this.props.preferences[prop]) {
-       prefSet = false;
-      }
-    }
     if (!this.props.login.login) {
       return(
           <LoginHome/>
       )
-    } else if (!prefSet) {
+    } else if (!this.props.preferences.submitted) {
       return (
-          <Preferences/>
+        <SetPreferencesNav/>
       )
     } else {
       return (
-        <PreferencesNav/>
+        <MyPreferencesNav/>
       )
     }
   }

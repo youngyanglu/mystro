@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {
   View
 } from 'react-native';
-import { Button, ListItem, Card } from 'react-native-elements';
+import { Button, ListItem, Card, Divider } from 'react-native-elements';
 import {connect} from 'react-redux';
 import { StackNavigator } from 'react-navigation';
 import loginActions from '../actions/login';
+import preferenceActions from '../actions/preferences';
+import {myPreferences as styles} from '../styling/styles';
 
 const mapStateToProps = state => {
   return {
@@ -19,8 +21,13 @@ class MyPreferences extends Component {
     super(props);
   }
 
+  static navigationOptions = {
+    title: 'My Preferences',
+  };
+
   _onLogout() {
     this.props.dispatch(loginActions.logout());
+    this.props.dispatch(preferenceActions.clearPreference());
   }
 
   render() {
@@ -34,25 +41,31 @@ class MyPreferences extends Component {
     }
 
     return (
-      <View>
+      <View >
         <Card containerStyle={{padding: 0}} >
           {
             Object.keys(this.props.preferences).map((preference) => {
-            return (
-              <ListItem
-                hideChevron = {true}
-                key={preference}
-                title={`${descriptions[preference]}: ${this.props.preferences[preference]}`}
-              />
-            );
-          })
-        }
-      </Card>
+              if (preference !== 'submitted') {
+                return (
+                  <ListItem
+                    hideChevron = {true}
+                    key={preference}
+                    title={`${descriptions[preference]}: ${this.props.preferences[preference]}`}
+                  />
+                );
+              }
+            })
+          }
+        </Card>
+        <Divider style={styles.divider} />
         <Button
+          backgroundColor = {'#df4b01'}
           onPress={() => navigate('Preferences')}
           title="Edit My Preferences"
         />
+        <Divider style={styles.divider} />
         <Button
+          backgroundColor = {'#b7a29a'}
           onPress={this._onLogout.bind(this)}
           title="Logout"
         />

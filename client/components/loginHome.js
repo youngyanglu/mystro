@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Alert,
   StyleSheet,
-  View
+  View,
+  Image,
+  Text
 } from 'react-native';
-import { Button } from 'react-native-elements'
+import { Button, Divider } from 'react-native-elements'
 import Auth0 from 'react-native-auth0';
 import loginActions from '../actions/login';
 import preferenceActions from '../actions/preferences';
@@ -60,7 +61,16 @@ class LoginHome extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.header}>
+          Mystro
+        </Text>
+        <Image
+          style={{width: 200, height: 200}}
+          source={require('../assets/logo1.png')}
+        />
+        <Divider style={styles.divider} />
         <Button
+          backgroundColor = {'#df4b01'}
           onPress={this._onLogin}
           title={'Log In or Sign Up'}
         />

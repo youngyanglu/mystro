@@ -8,20 +8,22 @@ module.exports.loginHome = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#f2d0bc'
   },
   header: {
-    fontSize: 20,
+    fontSize: 50,
     textAlign: 'center',
     margin: 10
-  }
+  },
+  divider: {height: 30}
+
 });
 
 const { width, height } = Dimensions.get('window')
 
 module.exports.preferences = {
   wrapper: {
-    // backgroundColor: '#f00'
+     //backgroundColor: '#f2d0bc'
   },
 
   slide: {
@@ -60,5 +62,21 @@ module.exports.preferences = {
     borderRadius: 7,
     marginLeft: 7,
     marginRight: 7},
+}
+
+module.exports.preferencenum = {
+  text: {
+    fontSize: 20,
+    textAlignVertical: 'center',
+    margin: 14
+  },
+  button: {
+    float: 'right'
+  }
+}
+
+
+module.exports.myPreferences = {
+  divider: {height: 10}
 }
 

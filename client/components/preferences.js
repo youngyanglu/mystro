@@ -14,10 +14,15 @@ import Preferences3 from './preferences3';
 import {preferences as styles} from '../styling/styles';
 
 export default class Preferences extends Component {
+  constructor(props){
+    super(props);
+    console.log(props, 'pref')
+  }
   static navigationOptions = {
     title: 'Preferences',
   };
   render () {
+    const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
@@ -35,7 +40,7 @@ export default class Preferences extends Component {
             <Preferences2/>
           </View>
           <View style={styles.slide}>
-            <Preferences3/>
+            <Preferences3 navigate={navigate}/>
           </View>
         </Swiper>
       </View>

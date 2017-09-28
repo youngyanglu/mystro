@@ -5,7 +5,8 @@ const initialState = {
   'pickUpDistance': null,
   'timeOut': null,
   'minPassengerRating': null,
-  'carpool': null
+  'carpool': null,
+  'submitted': false,
 }
 
 const preferences = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const preferences = (state = initialState, action) => {
       return Object.assign({}, state, {
         [action.preference]: action.choice
       })
+    case 'SUBMIT':
+      return Object.assign({}, state, {
+        'submitted': true
+      })
+    case 'CLEAR_PREFERENCE':
+      return initialState;
     default:
       return state
   }

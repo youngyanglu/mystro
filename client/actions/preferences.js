@@ -5,3 +5,15 @@ module.exports.setPreference = (preference, choice) => {
     choice: choice
   }
 }
+
+module.exports.clearPreference = () => {
+  return {
+    type: 'CLEAR_PREFERENCE',
+  }
+}
+
+module.exports.submitPreference = () => {
+  return {
+    type: 'SUBMIT',
+  }
+}
